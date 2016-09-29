@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Владелец{% endblock %}
+
+{% block content %}
+    <h4><a href="/owners_list">Владельцы</a>>>{% if owner != None %}Изменить существующего:{% else %}Добавить нового:{% endif %}</h4>
+    <form action="/save_owner" method="post">
+        {% csrf_token %}
+        <input type="text" name="id" value="{% if owner != None %}{{ owner.id }}{% else %}{% endif %}" class="form-id">
+        <table>
+            <tr>
+                <td>
+                    <div class="form-label">Фамилия</div>
+                    <input type="text" name="first_name" value="{% if owner != None %}{{ owner.first_name }}{% else %}{% endif %}">
+                </td>
+                <td>
+                    <div class="form-label">Имя</div>
+                    <input type="text" name="middle_name" value="{% if owner != None %}{{ owner.middle_name }}{% else %}{% endif %}">
+                </td>
+                <td>
+                    <div class="form-label">Отчество</div>
+                    <input type="text" name="last_name" value="{% if owner != None %}{{ owner.last_name }}{% else %}{% endif %}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-label">Дата рождения</div>
+                    <input type="date" name="birth_date" value="{% if owner != None %}{{ owner.birth_date }}{% else %}{% endif %}">
+                </td>
+                <td>
+                    <div class="form-label">Серия паспорта</div>
+                    <input type="text" name="passport_series" value="{% if owner != None %}{{ owner.passport_series }}{% else %}{% endif %}" pattern="[0-9]{4}">
+                </td>
+                <td>
+                    <div class="form-label">Номер паспорта</div>
+                    <input type="text" name="passport_number" value="{% if owner != None %}{{ owner.passport_number }}{% else %}{% endif %}" pattern="[0-9]{6}">
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Сохранить">
+    </form>
+
+
+
+{% endblock %}

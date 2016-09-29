@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Участки{% endblock %}
+
+{% block content %}
+    <h3>Участки</h3>    <h4 class="add"><a href="add_plot">Добавить новый</a></h4>
+    <table class="plots">
+        <thead>
+            <td>
+                Кадастровый номер
+            </td>
+            <td>
+                Местоположение
+            </td>
+            <td>
+                Владельцы
+            </td>
+            <td>
+                Площадь
+            </td>
+            <td>
+                Кадастровая стоимость
+            </td>
+            <td>
+
+            </td>
+        </thead>
+        {% for p in plots %}
+             <tr>
+                <td><a href="plot/{{ p.id }}">
+                    {{ p.cadastral_number }}</a>
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    {{ p.land_area }}
+                </td>
+                <td>
+                    {{ p.cadastral_value }}
+                </td>
+                <td>
+                    <a href="delete_plot/{{ p.id }}">Удалить</a>
+                </td>
+             </tr>
+        {% endfor %}
+    </table>
+
+
+
+
+{% endblock %}

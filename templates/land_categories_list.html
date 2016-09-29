@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Список категорий земель{% endblock %}
+
+{% block content %}
+    <h3>Категории земель</h3>
+    <table class="plots table">
+            <thead>
+                <td>
+                    Название
+                </td>
+                <td>
+
+                </td>
+            </thead>
+            {% for lc in land_categories %}
+                 <tr>
+                    <td><a href="/land_category/{{ lc.id }}">
+                        {{ lc.name }}</a>
+                    </td>
+                    <td>
+                        <a href="/delete_land_category/{{ lc.id }}">Удалить</a>
+                    </td>
+                 </tr>
+            {% endfor %}
+    </table>
+    <h3><a href="/add_land_category">Добавить новую</a></h3>
+
+
+{% endblock %}

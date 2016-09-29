@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Владельцы{% endblock %}
+
+{% block content %}
+    <h3>Владельцы</h3>    <h4 class="add"><a href="add_owner">Добавить нового</a></h4>
+    <table class="plots table">
+            <thead>
+                <td>
+                    Фамилия
+                </td>
+                <td>
+                    Имя
+                </td>
+                <td>
+                    Отчество
+                </td>
+                <td>
+                    Дата рождения
+                </td>
+                <td>
+                    Серия паспорта
+                </td>
+                <td>
+                    Номер паспорта
+                </td>
+                <td>
+
+                </td>
+            </thead>
+            {% for o in owners %}
+                 <tr>
+                    <td><a href="/owner/{{ o.id }}">
+                        {{ o.first_name }}</a>
+                    </td>
+                    <td>
+                        {{ o.middle_name }}
+                    </td>
+                    <td>
+                        {{ o.last_name }}
+                    </td>
+                    <td>
+                        {{ o.birth_date }}
+                    </td>
+                    <td>
+                        {{ o.passport_series }}
+                    </td>
+                    <td>
+                        {{ o.passport_number }}
+                    </td>
+                    <td>
+                        <a href="/delete_owner/{{ o.id }}">Удалить</a>
+                    </td>
+                 </tr>
+            {% endfor %}
+    </table>
+
+
+
+{% endblock %}

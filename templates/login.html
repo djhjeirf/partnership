@@ -1,0 +1,26 @@
+<html>
+<head>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/css.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}script/main.js"></script>
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        body {
+            background-color: #108798;
+        }
+    </style>
+</head>
+<body>
+<h1>HurrrDurrr</h1>
+    <div id="login-block">
+        <form action="login" method="post">
+            {% csrf_token %}
+            <p>Username</p>
+            <input type="text" name="username"><br><br>
+            <p>Password</p>
+            <input type="password" name="password"><br><br>
+            <input type="submit" value="Log in">
+        </form>
+    </div>
+</body>
+</html>

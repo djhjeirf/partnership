@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Вариант использования{% endblock %}
+
+{% block content %}
+    <h4><a href="/use_cases_list">Варианты использования</a>>>{% if use_case != None %}Изменить существующий:{% else %}Добавить новый:{% endif %}</h4>
+    <form action="/save_use_case" method="post">
+    {% csrf_token %}
+        <div class="form-label">Название</div>
+        <input type="text" name="id" value="{% if use_case != None %}{{ use_case.id }}{% else %}{% endif %}" class="form-id">
+        <input type="text" name="name" value="{% if use_case != None %}{{ use_case.name }}{% else %}{% endif %}">
+
+    <input type="submit" value="Сохранить">
+    </form>
+
+
+
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}Участок{% endblock %}
+
+{% block content %}
+<h4><a href="/plots_list">Участки</a>>>{% if plot != None %}Изменить существующий:{% else %}Добавить новый:{% endif %}</h4>
+    <form action="/save_plot" method="post">
+        {% csrf_token %}
+        <input type="text" name="id" value="{% if plot != None %}{{ plot.id }}{% else %}{% endif %}" class="form-id">
+        <table class="plot-table-add">
+            <tr>
+                <td>
+                    <div class="form-label">Кадастровый номер</div>
+                    <input type="text" name="cadastral_number" value="{% if plot != None %}{{ plot.cadastral_number }}{% else %}{% endif %}">
+                </td>
+                <td>
+                    <div class="form-label">Предыдущий кадастровый номер</div>
+                    <input type="text" name="prev_number" value="{% if plot != None %}{{ plot.prev_number }}{% else %}{% endif %}">
+                </td>
+                <td>
+                    <div class="form-label">Дата добавления в кадастр</div>
+                    <input type="date" name="add_date" value="{% if plot != None %}{{ plot.add_date }}{% else %}{% endif %}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-label">Площадь</div>
+                    <input type="number" step="0.01" name="land_area" value="{% if plot != None %}{{ plot.land_area }}{% else %}{% endif %}">
+                </td>
+                <td>
+                    <div class="form-label">Кадастровая стоимость</div>
+                    <input type="number" step="0.01" name="cadastral_value" value="{% if plot != None %}{{ plot.cadastral_value }}{% else %}{% endif %}">
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-label">Местоположение</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>Область</div>
+                    <input type="text" name="region" value="{% if plot != None %}{{ plot.region }}{% else %}{% endif %}">
+                </td>
+                <td>
+                    <div>Район</div>
+                    <input type="text" name="district" value="{% if plot != None %}{{ plot.district }}{% else %}{% endif %}">
+                </td>
+                <td>
+                    <div>Населенный пункт</div>
+                    <input type="text" name="settlement" value="{% if plot != None %}{{ plot.settlement }}{% else %}{% endif %}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-label">Категория земель</div>
+                    <select name="_land_category">
+                        {% for lc in lc_list %}
+                            <option>{{ lc }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <div class="form-label">Разрешенные варианты использования</div>
+                    <select name="_permitted_use">
+                        {% for uc in uc_list %}
+                            <option>{{ uc }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-label">Сведения о правах</div>
+                    <a onclick="add_owner()">Добавить еще владельца</a>
+                </td>
+            </tr>
+        {% if real_owners == None %}
+            <tr class="owner-block">
+                <td valign="top">
+                    <div>Владелец</div>
+                    <select name="owners">
+                        <option></option>
+                        {% for o in o_list %}
+                            <option>{{ o }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td colspan="2">
+                    <div>Документ</div>
+                    <textarea rows="5" name="document"></textarea>
+                </td>
+            </tr>
+        {% endif %}
+        {% for ro in real_owners %}
+            <tr>
+                <td valign="top">
+                    <div>Владелец</div>
+                    <select name="owners">
+                        <option>{{ ro.0 }}</option>
+                        {% for o in o_list %}
+                            <option>{{ o }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td colspan="2">
+                    <div>Документ</div>
+                    <textarea rows="5" name="document">{{ ro.1 }}</textarea>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    <input type="submit" value="Сохранить">
+    </form>
+{% endblock %}
+

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Категория земель{% endblock %}
+
+{% block content %}
+    <h4><a href="/land_categories_list">Категории земель</a>>>{% if land_category != None %}Изменить существующую:{% else %}Добавить новую:{% endif %}</h4>
+    <form action="/save_land_category.html" method="post">
+    {% csrf_token %}
+    <div class="form-label">Название</div>
+        <input type="text" name="id" value="{% if land_category != None %}{{ land_category.id }}{% else %}{% endif %}" class="form-id">
+        <input type="text" name="name" value="{% if land_category != None %}{{ land_category.name }}{% else %}{% endif %}">
+
+    <input type="submit" value="Сохранить">
+    </form>
+
+
+
+{% endblock %}
